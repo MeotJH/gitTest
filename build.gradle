@@ -1,0 +1,66 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.1'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id "com.moowork.node" version "1.3.1"
+	id 'java'
+}
+
+//spring vue.js연동
+node {
+	version = '12.13.1'
+	npmVersion = '6.14.9'
+	workDir = file("./src/frontend")
+	npmWorkDir = file("./src/frontend")
+	nodeModulesDir = file("./src/frontend")
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	//mariadb
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
+	
+	//jdbc를 추가해야 히카리가 들어감?
+	compile 'org.springframework.boot:spring-boot-starter-jdbc'
+	
+	//mybatis
+	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2")
+	
+	//lombok 설치
+	implementation 'org.projectlombok:lombok'
+	
+	
+	//jsp 사용하기 위한 임시디펜던시
+	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
+	compile('javax.servlet:jstl:1.2')
+
+}
+
+//vue.js 가 같이 빌드되도록 하는 gradle
+task setUp(type: NpmTask) {
+	description = "Install Node.js packages"
+	args = ['install']
+	inputs.files file('package.json')
+	outputs.files file('node_modules')
+}
+
+task buildFrontEnd(type: NpmTask, dependsOn: setUp){
+	description = "Build vue.js"
+	args = ['run', 'build']
+}
+
+processResources.dependsOn 'buildFrontEnd'
+
+test {
+	useJUnitPlatform()
+}
