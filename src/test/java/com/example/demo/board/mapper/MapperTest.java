@@ -24,7 +24,7 @@ public class MapperTest {
 			if(!boardList.isEmpty()) {	//리스트가 비었나?
 				for(BoardDto board:boardList) {	//foreach문
 					System.out.println("==============================");
-					System.out.println(board.getTitle());
+					//System.out.println(board.getTitle());
 					System.out.println("==============================");
 					
 					
@@ -36,9 +36,9 @@ public class MapperTest {
 	public void testInsert() {
 		
 		BoardDto board = new BoardDto();
-		board.setTitle("spring insert");
-		board.setContents("spring contents");
-		board.setUpdateId("spring writer");
+		//board.setTitle("spring insert");
+		//board.setContents("spring contents");
+		//board.setUpdateId("spring writer");
 		
 		boardMapper.insert(board);
 		
@@ -65,10 +65,10 @@ public class MapperTest {
 		
 		BoardDto board = new BoardDto();
 		
-		board.setBoardIdx(3);
-		board.setTitle("springUpdateTitle");
-		board.setContents("springUpdateContents");
-		board.setUpdateId("springUpdateId");
+		//board.setBoardIdx(3);
+		//board.setTitle("springUpdateTitle");
+		//board.setContents("springUpdateContents");
+		//board.setUpdateId("springUpdateId");
 		
 		int count = boardMapper.update(board);
 		

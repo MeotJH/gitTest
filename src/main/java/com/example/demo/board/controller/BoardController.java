@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.board.service.BoardService;
 
+
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -22,6 +23,7 @@ public class BoardController{
 	public void list(Model model) throws Exception {
 		
 		log.info("list갔냐");
+		
 		
 		model.addAttribute("list", service.getList());
 	
